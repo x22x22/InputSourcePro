@@ -14,8 +14,8 @@ enum IndicatorInfo: Int32, CaseIterable, Identifiable {
         case .iconAndTitle: return "Icon and Title".i18n()
         case .iconOnly: return "Icon".i18n()
         case .titleOnly: return "Title".i18n()
-        case .iconAndTitleWithMode: return "Icon and Title with Mode".i18n()
-        case .titleWithMode: return "Title with Mode".i18n()
+        case .iconAndTitleWithMode: return "Icon and Title with Language".i18n()
+        case .titleWithMode: return "Title with Language".i18n()
         }
     }
 }

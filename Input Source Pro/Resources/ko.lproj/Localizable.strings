@@ -95,8 +95,8 @@
 "Icon and Title" = "아이콘 및 제목";
 "Icon" = "아이콘";
 "Title" = "제목";
-"Icon and Title with Mode" = "아이콘, 제목 및 언어";
-"Title with Mode" = "제목 및 언어";
+"Icon and Title with Language" = "아이콘, 제목 및 언어";
+"Title with Language" = "제목 및 언어";
 "Indicator Size" = "표시기 크기";
 "Small" = "작음";
 "Medium" = "중간";
