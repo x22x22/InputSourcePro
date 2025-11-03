@@ -45,6 +45,9 @@ extension TISInputSource {
         return OpaquePointer(TISGetInputSourceProperty(self, kTISPropertyIconRef))
     }
     
+    /// The input mode identifier (e.g., "com.apple.inputmethod.Roman")
+    /// Note: This property is currently unused but kept for potential future enhancements
+    /// to detect real-time ASCII/native mode switching if Apple exposes this through future APIs
     var inputModeID: String? {
         return getProperty(kTISPropertyInputModeID) as? String
     }
