@@ -24,42 +24,22 @@ class InputSource {
         return lang == "ru" || lang == "ko" || lang == "ja" || lang == "vi" || lang.hasPrefix("zh")
     }
     
-    /// Detect the current input mode (ASCII vs native)
-    var inputMode: InputMode {
-        // For non-CJKV input sources, mode detection is not applicable
-        guard isCJKVR else { return .unknown }
+    /// Get the language type of this input source
+    var languageType: InputMode {
+        guard let lang = tisInputSource.sourceLanguages.first else { return .other }
         
-        // Try to get the input mode ID from TIS
-        if let modeID = tisInputSource.inputModeID {
-            // Common patterns for ASCII mode in various input methods
-            // ASCII modes typically have identifiers containing "ASCII" or "Roman"
-            let lowercaseMode = modeID.lowercased()
-            if lowercaseMode.contains("ascii") || lowercaseMode.contains("roman") {
-                return .ascii
-            } else if lowercaseMode.contains("hiragana") || 
-                      lowercaseMode.contains("katakana") ||
-                      lowercaseMode.contains("pinyin") ||
-                      lowercaseMode.contains("hangul") {
-                return .native
-            }
+        if lang == "ru" || lang == "ko" || lang == "ja" || lang == "vi" || lang.hasPrefix("zh") {
+            return .cjk(lang)
+        } else if lang == "en" {
+            return .latin
+        } else {
+            return .other
         }
-        
-        // If we can't determine from the mode ID, return unknown
-        // The actual mode can only be reliably determined at runtime
-        return .unknown
     }
     
-    /// Get the display text for the current input mode
-    var inputModeDisplayText: String {
-        guard isCJKVR else { return "" }
-        
-        let mode = inputMode
-        if mode == .unknown {
-            return ""
-        }
-        
-        let lang = tisInputSource.sourceLanguages.first ?? ""
-        return mode.displayName(for: lang)
+    /// Get the display badge for this input source's language type
+    var languageTypeBadge: String {
+        return languageType.displayBadge
     }
 
     init(tisInputSource: TISInputSource) {

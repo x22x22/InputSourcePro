@@ -1,42 +1,30 @@
 import Foundation
 
-/// Represents the current input mode state of an input source
+/// Represents the language type of an input source
 enum InputMode: Equatable {
-    case ascii  // English/ASCII mode
-    case native // Native language mode (Chinese, Japanese, Korean, etc.)
-    case unknown // Cannot determine mode or not applicable
+    case cjk(String)  // CJK language (stores language code: zh, ja, ko, vi)
+    case latin        // Latin/English keyboard
+    case other        // Other keyboards
     
-    /// Localized display name for the mode
-    var displayName: String {
+    /// Localized display badge for the language type
+    var displayBadge: String {
         switch self {
-        case .ascii:
-            return "EN"
-        case .native:
-            return "中"  // Default to Chinese, can be customized per language
-        case .unknown:
-            return ""
-        }
-    }
-    
-    /// Returns a localized display name based on the input source language
-    func displayName(for language: String) -> String {
-        switch self {
-        case .ascii:
-            return "EN"
-        case .native:
+        case .cjk(let lang):
             // Return language-specific indicators
-            if language.hasPrefix("zh") {
+            if lang.hasPrefix("zh") {
                 return "中"
-            } else if language == "ja" {
+            } else if lang == "ja" {
                 return "あ"
-            } else if language == "ko" {
+            } else if lang == "ko" {
                 return "한"
-            } else if language == "vi" {
+            } else if lang == "vi" {
                 return "Vi"
             } else {
-                return "A"
+                return "中"  // Default for unknown CJK
             }
-        case .unknown:
+        case .latin:
+            return "EN"
+        case .other:
             return ""
         }
     }

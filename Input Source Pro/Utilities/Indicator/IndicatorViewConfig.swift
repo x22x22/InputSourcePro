@@ -149,22 +149,22 @@ struct IndicatorViewConfig {
         let containerView = getContainerView()
         let labelView = NSTextField(labelWithString: inputSource.name)
         
-        // Get input mode text if available
-        let modeText = inputSource.inputModeDisplayText
+        // Get language type badge
+        let badgeText = inputSource.languageTypeBadge
         var views: [NSView] = [imageView, labelView]
         
-        if !modeText.isEmpty {
-            let modeLabel = NSTextField(labelWithString: modeText)
-            modeLabel.textColor = textColor
-            views.append(modeLabel)
+        if !badgeText.isEmpty {
+            let badgeLabel = NSTextField(labelWithString: badgeText)
+            badgeLabel.textColor = textColor
+            views.append(badgeLabel)
             
             switch size {
             case .small:
-                modeLabel.font = .systemFont(ofSize: 10, weight: .bold)
+                badgeLabel.font = .systemFont(ofSize: 10, weight: .bold)
             case .medium:
-                modeLabel.font = .systemFont(ofSize: 12.6, weight: .bold)
+                badgeLabel.font = .systemFont(ofSize: 12.6, weight: .bold)
             case .large:
-                modeLabel.font = .systemFont(ofSize: 20, weight: .bold)
+                badgeLabel.font = .systemFont(ofSize: 20, weight: .bold)
             }
         }
         
@@ -207,22 +207,22 @@ struct IndicatorViewConfig {
         let containerView = getContainerView()
         let labelView = NSTextField(labelWithString: inputSource.name)
         
-        // Get input mode text if available
-        let modeText = inputSource.inputModeDisplayText
+        // Get language type badge
+        let badgeText = inputSource.languageTypeBadge
         var views: [NSView] = [labelView]
         
-        if !modeText.isEmpty {
-            let modeLabel = NSTextField(labelWithString: modeText)
-            modeLabel.textColor = textColor
-            views.append(modeLabel)
+        if !badgeText.isEmpty {
+            let badgeLabel = NSTextField(labelWithString: badgeText)
+            badgeLabel.textColor = textColor
+            views.append(badgeLabel)
             
             switch size {
             case .small:
-                modeLabel.font = .systemFont(ofSize: 10, weight: .bold)
+                badgeLabel.font = .systemFont(ofSize: 10, weight: .bold)
             case .medium:
-                modeLabel.font = .systemFont(ofSize: 12.6, weight: .bold)
+                badgeLabel.font = .systemFont(ofSize: 12.6, weight: .bold)
             case .large:
-                modeLabel.font = .systemFont(ofSize: 20, weight: .bold)
+                badgeLabel.font = .systemFont(ofSize: 20, weight: .bold)
             }
         }
         
