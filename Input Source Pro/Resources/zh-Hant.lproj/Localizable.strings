@@ -96,6 +96,8 @@
 "Icon and Title" = "圖示和標題";
 "Icon" = "圖示";
 "Title" = "標題";
+"Icon and Title with Mode" = "圖示和標題及模式";
+"Title with Mode" = "標題及模式";
 "Indicator Size" = "指示器大小";
 "Small" = "小";
 "Medium" = "中";

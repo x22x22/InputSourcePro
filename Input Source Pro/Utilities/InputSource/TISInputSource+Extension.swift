@@ -44,4 +44,8 @@ extension TISInputSource {
     var iconRef: IconRef? {
         return OpaquePointer(TISGetInputSourceProperty(self, kTISPropertyIconRef))
     }
+    
+    var inputModeID: String? {
+        return getProperty(kTISPropertyInputModeID) as? String
+    }
 }

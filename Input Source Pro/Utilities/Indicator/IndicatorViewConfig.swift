@@ -5,6 +5,8 @@ enum IndicatorKind {
     case title
     case iconAndTitle
     case alwaysOn
+    case iconAndTitleWithMode
+    case titleWithMode
 }
 
 @MainActor
@@ -25,6 +27,10 @@ struct IndicatorViewConfig {
             return renderOnlyLabel()
         case .alwaysOn:
             return renderAlwaysOn()
+        case .iconAndTitleWithMode:
+            return renderWithLabelAndMode()
+        case .titleWithMode:
+            return renderOnlyLabelWithMode()
         }
     }
 
@@ -102,6 +108,125 @@ struct IndicatorViewConfig {
         let containerView = getContainerView()
         let labelView = NSTextField(labelWithString: inputSource.name)
         let stackView = NSStackView(views: [labelView])
+
+        switch size {
+        case .small:
+            containerView.layer?.cornerRadius = 3
+            stackView.spacing = 3
+            labelView.font = .systemFont(ofSize: 10)
+        case .medium:
+            containerView.layer?.cornerRadius = 4
+            stackView.spacing = 5
+            labelView.font = .systemFont(ofSize: 12.6)
+        case .large:
+            containerView.layer?.cornerRadius = 6
+            stackView.spacing = 8
+            labelView.font = .systemFont(ofSize: 20)
+        }
+
+        labelView.textColor = textColor
+        stackView.alignment = .centerY
+        containerView.addSubview(stackView)
+
+        stackView.snp.makeConstraints { make in
+            switch size {
+            case .small:
+                make.edges.equalToSuperview().inset(NSEdgeInsets(top: 3, left: 3, bottom: 3, right: 3))
+            case .medium:
+                make.edges.equalToSuperview().inset(NSEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
+            case .large:
+                make.edges.equalToSuperview().inset(NSEdgeInsets(top: 6, left: 6, bottom: 6, right: 6))
+            }
+        }
+
+        return containerView
+    }
+    
+    private func renderWithLabelAndMode() -> NSView? {
+        guard let imageView = getImageView(inputSource)
+        else { return renderOnlyLabelWithMode() }
+
+        let containerView = getContainerView()
+        let labelView = NSTextField(labelWithString: inputSource.name)
+        
+        // Get input mode text if available
+        let modeText = inputSource.inputModeDisplayText
+        var views: [NSView] = [imageView, labelView]
+        
+        if !modeText.isEmpty {
+            let modeLabel = NSTextField(labelWithString: modeText)
+            modeLabel.textColor = textColor
+            views.append(modeLabel)
+            
+            switch size {
+            case .small:
+                modeLabel.font = .systemFont(ofSize: 10, weight: .bold)
+            case .medium:
+                modeLabel.font = .systemFont(ofSize: 12.6, weight: .bold)
+            case .large:
+                modeLabel.font = .systemFont(ofSize: 20, weight: .bold)
+            }
+        }
+        
+        let stackView = NSStackView(views: views)
+
+        switch size {
+        case .small:
+            containerView.layer?.cornerRadius = 3
+            stackView.spacing = 3
+            labelView.font = .systemFont(ofSize: 10)
+        case .medium:
+            containerView.layer?.cornerRadius = 4
+            stackView.spacing = 5
+            labelView.font = .systemFont(ofSize: 12.6)
+        case .large:
+            containerView.layer?.cornerRadius = 6
+            stackView.spacing = 8
+            labelView.font = .systemFont(ofSize: 20)
+        }
+
+        labelView.textColor = textColor
+        stackView.alignment = .centerY
+        containerView.addSubview(stackView)
+
+        stackView.snp.makeConstraints { make in
+            switch size {
+            case .small:
+                make.edges.equalToSuperview().inset(NSEdgeInsets(top: 3, left: 3, bottom: 3, right: 3))
+            case .medium:
+                make.edges.equalToSuperview().inset(NSEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
+            case .large:
+                make.edges.equalToSuperview().inset(NSEdgeInsets(top: 6, left: 6, bottom: 6, right: 6))
+            }
+        }
+
+        return containerView
+    }
+    
+    private func renderOnlyLabelWithMode() -> NSView? {
+        let containerView = getContainerView()
+        let labelView = NSTextField(labelWithString: inputSource.name)
+        
+        // Get input mode text if available
+        let modeText = inputSource.inputModeDisplayText
+        var views: [NSView] = [labelView]
+        
+        if !modeText.isEmpty {
+            let modeLabel = NSTextField(labelWithString: modeText)
+            modeLabel.textColor = textColor
+            views.append(modeLabel)
+            
+            switch size {
+            case .small:
+                modeLabel.font = .systemFont(ofSize: 10, weight: .bold)
+            case .medium:
+                modeLabel.font = .systemFont(ofSize: 12.6, weight: .bold)
+            case .large:
+                modeLabel.font = .systemFont(ofSize: 20, weight: .bold)
+            }
+        }
+        
+        let stackView = NSStackView(views: views)
 
         switch size {
         case .small:

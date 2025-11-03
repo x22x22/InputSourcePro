@@ -56,6 +56,7 @@
 		4A2A1796280BA7FA00E13249 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2A176F280BA7FA00E13249 /* AppMenu.swift */; };
 		4A2A1797280BA7FA00E13249 /* PreferencesVM+AppCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2A1771280BA7FA00E13249 /* PreferencesVM+AppCustomization.swift */; };
 		4A2A1798280BA7FA00E13249 /* InputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2A1772280BA7FA00E13249 /* InputSource.swift */; };
+		B65688972AF24B9E8E136E32 /* InputMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65688962AF24B9E8E136E31 /* InputMode.swift */; };
 		4A2A1799280BA7FA00E13249 /* IndicatorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2A1773280BA7FA00E13249 /* IndicatorVM.swift */; };
 		4A2A179A280BA7FA00E13249 /* PreferencesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2A1774280BA7FA00E13249 /* PreferencesVM.swift */; };
 		4A2A179B280BA7FA00E13249 /* RulesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2A1777280BA7FA00E13249 /* RulesSettingsView.swift */; };
@@ -224,6 +225,7 @@
 		4A2A176F280BA7FA00E13249 /* AppMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 		4A2A1771280BA7FA00E13249 /* PreferencesVM+AppCustomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PreferencesVM+AppCustomization.swift"; sourceTree = "<group>"; };
 		4A2A1772280BA7FA00E13249 /* InputSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputSource.swift; sourceTree = "<group>"; };
+		B65688962AF24B9E8E136E31 /* InputMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputMode.swift; sourceTree = "<group>"; };
 		4A2A1773280BA7FA00E13249 /* IndicatorVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorVM.swift; sourceTree = "<group>"; };
 		4A2A1774280BA7FA00E13249 /* PreferencesVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesVM.swift; sourceTree = "<group>"; };
 		4A2A1777280BA7FA00E13249 /* RulesSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesSettingsView.swift; sourceTree = "<group>"; };
@@ -645,6 +647,7 @@
 			isa = PBXGroup;
 			children = (
 				4A2A1772280BA7FA00E13249 /* InputSource.swift */,
+				B65688962AF24B9E8E136E31 /* InputMode.swift */,
 				D5D029072A3C129F005F2FB9 /* InputSource+Name.swift */,
 				4A2A1760280BA7FA00E13249 /* TISInputSource+Extension.swift */,
 				D57334252A84B40B00C8438F /* IconMap.swift */,
@@ -925,6 +928,7 @@
 				D58C184428A6ABBC00F52845 /* NSRunningApplication+FocusedElement.swift in Sources */,
 				4A2A178E280BA7FA00E13249 /* NSMenuItem.swift in Sources */,
 				4A2A1798280BA7FA00E13249 /* InputSource.swift in Sources */,
+				B65688972AF24B9E8E136E32 /* InputMode.swift in Sources */,
 				D5115A1E2A33D57A00D94E51 /* ItemSection.swift in Sources */,
 				D58C184628A6B2DE00F52845 /* ISPLogger.swift in Sources */,
 				4ADDC326281AC4DD0075528A /* NSApplication.swift in Sources */,
