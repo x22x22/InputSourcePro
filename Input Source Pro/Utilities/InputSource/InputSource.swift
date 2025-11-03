@@ -19,8 +19,12 @@ class InputSource {
     var name: String { tisInputSource.name }
 
     var isCJKVR: Bool {
-        guard let lang = tisInputSource.sourceLanguages.first else { return false }
-
+        return isCJKVRLanguage(tisInputSource.sourceLanguages.first)
+    }
+    
+    /// Helper to check if a language code is CJKV or Russian
+    private func isCJKVRLanguage(_ lang: String?) -> Bool {
+        guard let lang = lang else { return false }
         return lang == "ru" || lang == "ko" || lang == "ja" || lang == "vi" || lang.hasPrefix("zh")
     }
     
@@ -28,7 +32,7 @@ class InputSource {
     var languageType: InputMode {
         guard let lang = tisInputSource.sourceLanguages.first else { return .other }
         
-        if lang == "ru" || lang == "ko" || lang == "ja" || lang == "vi" || lang.hasPrefix("zh") {
+        if isCJKVRLanguage(lang) {
             return .cjk(lang)
         } else if lang == "en" {
             return .latin

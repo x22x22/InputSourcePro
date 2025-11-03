@@ -19,8 +19,11 @@ enum InputMode: Equatable {
                 return "한"
             } else if lang == "vi" {
                 return "Vi"
+            } else if lang == "ru" {
+                return "RU"
             } else {
-                return "中"  // Default for unknown CJK
+                // Unknown CJK language - use generic indicator
+                return "A"
             }
         case .latin:
             return "EN"

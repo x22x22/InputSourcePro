@@ -142,6 +142,24 @@ struct IndicatorViewConfig {
         return containerView
     }
     
+    private func createLanguageBadgeLabel(_ badgeText: String) -> NSTextField? {
+        guard !badgeText.isEmpty else { return nil }
+        
+        let badgeLabel = NSTextField(labelWithString: badgeText)
+        badgeLabel.textColor = textColor
+        
+        switch size {
+        case .small:
+            badgeLabel.font = .systemFont(ofSize: 10, weight: .bold)
+        case .medium:
+            badgeLabel.font = .systemFont(ofSize: 12.6, weight: .bold)
+        case .large:
+            badgeLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        }
+        
+        return badgeLabel
+    }
+    
     private func renderWithLabelAndMode() -> NSView? {
         guard let imageView = getImageView(inputSource)
         else { return renderOnlyLabelWithMode() }
@@ -149,23 +167,11 @@ struct IndicatorViewConfig {
         let containerView = getContainerView()
         let labelView = NSTextField(labelWithString: inputSource.name)
         
-        // Get language type badge
-        let badgeText = inputSource.languageTypeBadge
         var views: [NSView] = [imageView, labelView]
         
-        if !badgeText.isEmpty {
-            let badgeLabel = NSTextField(labelWithString: badgeText)
-            badgeLabel.textColor = textColor
+        // Add language badge if available
+        if let badgeLabel = createLanguageBadgeLabel(inputSource.languageTypeBadge) {
             views.append(badgeLabel)
-            
-            switch size {
-            case .small:
-                badgeLabel.font = .systemFont(ofSize: 10, weight: .bold)
-            case .medium:
-                badgeLabel.font = .systemFont(ofSize: 12.6, weight: .bold)
-            case .large:
-                badgeLabel.font = .systemFont(ofSize: 20, weight: .bold)
-            }
         }
         
         let stackView = NSStackView(views: views)
@@ -207,23 +213,11 @@ struct IndicatorViewConfig {
         let containerView = getContainerView()
         let labelView = NSTextField(labelWithString: inputSource.name)
         
-        // Get language type badge
-        let badgeText = inputSource.languageTypeBadge
         var views: [NSView] = [labelView]
         
-        if !badgeText.isEmpty {
-            let badgeLabel = NSTextField(labelWithString: badgeText)
-            badgeLabel.textColor = textColor
+        // Add language badge if available
+        if let badgeLabel = createLanguageBadgeLabel(inputSource.languageTypeBadge) {
             views.append(badgeLabel)
-            
-            switch size {
-            case .small:
-                badgeLabel.font = .systemFont(ofSize: 10, weight: .bold)
-            case .medium:
-                badgeLabel.font = .systemFont(ofSize: 12.6, weight: .bold)
-            case .large:
-                badgeLabel.font = .systemFont(ofSize: 20, weight: .bold)
-            }
         }
         
         let stackView = NSStackView(views: views)
