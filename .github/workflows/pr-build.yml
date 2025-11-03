@@ -1,0 +1,97 @@
+name: PR Build (Unsigned)
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  build_unsigned:
+    runs-on: macos-15
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Build App (Unsigned)
+        run: |
+          mkdir -p dist
+          xcodebuild \
+            -project Input\ Source\ Pro.xcodeproj/ \
+            -scheme "Input Source Pro" \
+            -configuration Release \
+            -derivedDataPath build \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+          
+          # Copy the built app to dist folder
+          cp -R build/Build/Products/Release/Input\ Source\ Pro.app dist/
+      
+      - name: Create DMG
+        run: |
+          # Install create-dmg if not available
+          npm install -g create-dmg || true
+          
+          # Create DMG from the app
+          npx create-dmg dist/Input\ Source\ Pro.app dist/ || true
+          
+          # Rename the DMG file to a consistent name
+          if [ -f dist/Input\ Source\ Pro*.dmg ]; then
+            mv dist/Input\ Source\ Pro*.dmg dist/Input-Source-Pro-unsigned.dmg
+          fi
+      
+      - name: Create ZIP as fallback
+        run: |
+          cd dist
+          if [ -d "Input Source Pro.app" ]; then
+            zip -r Input-Source-Pro-unsigned.zip "Input Source Pro.app"
+          fi
+          cd ..
+      
+      - name: Upload App Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Input-Source-Pro-App-Bundle
+          path: dist/Input Source Pro.app
+          if-no-files-found: error
+      
+      - name: Upload DMG (if created)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Input-Source-Pro-DMG-unsigned
+          path: dist/Input-Source-Pro-unsigned.dmg
+          if-no-files-found: ignore
+      
+      - name: Upload ZIP
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Input-Source-Pro-ZIP-unsigned
+          path: dist/Input-Source-Pro-unsigned.zip
+          if-no-files-found: ignore
+      
+      - name: Build Summary
+        run: |
+          echo "## Build Complete ✅" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Note:** This is an unsigned build for testing purposes only." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Built Artifacts:" >> $GITHUB_STEP_SUMMARY
+          echo "- App Bundle: \`Input Source Pro.app\`" >> $GITHUB_STEP_SUMMARY
+          if [ -f dist/Input-Source-Pro-unsigned.dmg ]; then
+            echo "- DMG Package: \`Input-Source-Pro-unsigned.dmg\`" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -f dist/Input-Source-Pro-unsigned.zip ]; then
+            echo "- ZIP Archive: \`Input-Source-Pro-unsigned.zip\`" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Installation Instructions:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Download the artifact from the Actions tab" >> $GITHUB_STEP_SUMMARY
+          echo "2. Unzip the downloaded file" >> $GITHUB_STEP_SUMMARY
+          echo "3. Move \`Input Source Pro.app\` to your Applications folder" >> $GITHUB_STEP_SUMMARY
+          echo "4. Right-click the app and select 'Open' (required for unsigned apps)" >> $GITHUB_STEP_SUMMARY
+          echo "5. Allow accessibility permissions when prompted" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "⚠️ **Security Note:** This is an unsigned build. You may need to allow it in System Preferences > Security & Privacy." >> $GITHUB_STEP_SUMMARY
