@@ -95,6 +95,8 @@
 "Icon and Title" = "アイコンとタイトル";
 "Icon" = "アイコン";
 "Title" = "タイトル";
+"Icon and Title with Language" = "アイコン、タイトルと言語";
+"Title with Language" = "タイトルと言語";
 "Indicator Size" = "インジケーターサイズ";
 "Small" = "小";
 "Medium" = "中";

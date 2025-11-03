@@ -447,6 +447,10 @@ extension Preferences {
             return .icon
         case .titleOnly:
             return .title
+        case .iconAndTitleWithMode:
+            return .iconAndTitleWithMode
+        case .titleWithMode:
+            return .titleWithMode
         }
     }
 
